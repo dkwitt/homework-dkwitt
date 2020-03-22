@@ -1,5 +1,5 @@
 from typing import List
-
+import datetime 
 import pandas as pd
 
 CONFIRMED_CASES_URL = f"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data" \
@@ -84,5 +84,5 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     count = 0
     size_range = confirmed_cases.shape[0]
     for i in range(0, size_range):
-        if to_check.loc[i][0].item() == check.loc[i][1].item():
+        if check.loc[i][0].item() == check.loc[i][1].item():
             count += 1
