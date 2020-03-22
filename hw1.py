@@ -29,6 +29,9 @@ def poland_cases_by_date(day: int, month: int, year: int = 2020) -> int:
     """
     
     d=datetime.date(year,month,day)
+    data = d.strftime('%m/%d/%y').lstrip("0").replace(" 0", " ").replace("/0", "/")
+    inpoland = confirmed_cases.loc[confirmed_cases["Country/Region"]=="Poland"]
+    result = inpoland[data].values[0]
 
     return confirmed_cases.loc[confirmed_cases["Country/Region"]=="Poland"][f"{d.month}/{d.day}/{d.year-2000}"].values[0]
 
@@ -51,6 +54,9 @@ def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
     """
 
     d=datetime.date(year,month,day)
+    d1 = d.strftime('%m/%d/%y').lstrip("0").replace(" 0", " ").replace("/0", "/")
+    countries = confirmed_cases[["Country/Region", d1]].groupby(["Country/Region"]).sum().sort_values(by=d1, ascending=False).head(5)
+    
     return list(confirmed_cases.groupby(["Country/Region"]).sum().sort_values(by=[f"{d.month}/{d.day}/{d.year-2000}"],ascending=False).head(5).index)
 
 # Function name is wrong, read the pydoc
