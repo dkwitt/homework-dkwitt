@@ -86,3 +86,4 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     for i in range(0, size_range):
         if check.loc[i][0].item() == check.loc[i][1].item():
             count += 1
+    return (size_range - count)
