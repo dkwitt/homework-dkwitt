@@ -28,8 +28,10 @@ def poland_cases_by_date(day: int, month: int, year: int = 2020) -> int:
     :return: Number of cases on a given date as an integer
     """
     
-    # Your code goes here (remove pass)
-    pass
+    d=datetime.date(year,month,day)
+
+    return confirmed_cases.loc[confirmed_cases["Country/Region"]=="Poland"][f"{d.month}/{d.day}/{d.year-2000}"].values[0]
+
 
 
 def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
@@ -48,8 +50,8 @@ def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
     :return: A list of strings with the names of the coutires
     """
 
-    # Your code goes here (remove pass)
-    pass
+    d=datetime.date(year,month,day)
+    return list(confirmed_cases.groupby(["Country/Region"]).sum().sort_values(by=[f"{d.month}/{d.day}/{d.year-2000}"],ascending=False).head(5).index)
 
 # Function name is wrong, read the pydoc
 def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
@@ -69,5 +71,13 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     :return: Number of countries/regions where the count has not changed in a day
     """
     
-    # Your code goes here (remove pass)
-    pass
+    today = datetime.date(day=day, month=month, year=year)
+    previous_day = (today + datetime.timedelta(days=-1)).strftime('%-m/%-d/%y')
+    today = today.strftime('%-m/%-d/%y')
+    check = confirmed_cases.get([previous_day, today])
+    count = 0
+    size_range = confirmed_cases.shape[0]
+    for i in range(0, size_range):
+        if to_check.loc[i][0].item() == check.loc[i][1].item():
+            count += 1
+
