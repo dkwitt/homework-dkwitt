@@ -87,3 +87,4 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
         if to_check.loc[i][0].item() == check.loc[i][1].item():
             count += 1
 
+print(poland_cases_by_date(7, 3, 2020))
