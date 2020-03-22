@@ -1,5 +1,5 @@
 from typing import List
-from datetime import datetime 
+import datetime 
 import pandas as pd
 
 CONFIRMED_CASES_URL = f"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data" \
